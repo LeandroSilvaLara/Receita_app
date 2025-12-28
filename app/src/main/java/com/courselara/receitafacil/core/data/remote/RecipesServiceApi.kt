@@ -7,7 +7,7 @@ import com.courselara.receitafacil.core.data.remote.responses.TokenResponse
 import com.courselara.receitafacil.core.data.remote.responses.UserResponse
 
 interface RecipesServiceApi {
-    suspend fun login(authUserRequest: AddUserRequest) : TokenResponse
+    suspend fun login(authUserRequest: AuthUserRequest) : TokenResponse
     suspend fun register(addUserRequest: AddUserRequest) : SimplesResponse
     suspend fun getProfileUser() : UserResponse
 }
