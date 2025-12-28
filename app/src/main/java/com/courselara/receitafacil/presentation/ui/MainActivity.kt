@@ -14,7 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import com.courselara.receitafacil.presentation.navigation.RootHost
 import com.courselara.receitafacil.presentation.navigation.screens.Graphs
 import com.courselara.receitafacil.presentation.ui.theme.ReceitaFacilAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
