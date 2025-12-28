@@ -1,4 +1,4 @@
-package com.courselara.receitafacil.ui.theme
+package com.courselara.receitafacil.presentation.ui.theme
 
 
 import androidx.compose.material3.Typography
