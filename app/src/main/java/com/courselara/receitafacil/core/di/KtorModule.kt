@@ -2,6 +2,8 @@ package com.courselara.receitafacil.core.di
 
 
 import com.courselara.receitafacil.BuildConfig
+import com.courselara.receitafacil.core.data.remote.RecipesServiceApi
+import com.courselara.receitafacil.core.data.remote.RecipesServiceApiImpl
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -80,5 +82,11 @@ object KtorModule {
 
         }
 
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipesServiceApi(httpClient: HttpClient): RecipesServiceApi {
+        return RecipesServiceApiImpl(httpClient)
     }
 }
