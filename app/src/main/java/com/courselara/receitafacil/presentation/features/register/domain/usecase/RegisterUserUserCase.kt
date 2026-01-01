@@ -8,6 +8,7 @@ import com.courselara.receitafacil.core.util.ServiceResult
 import com.courselara.receitafacil.core.util.Task
 import com.courselara.receitafacil.presentation.features.register.domain.model.AddUserRequestModel
 import com.courselara.receitafacil.presentation.features.register.domain.repository.RegisterUserRepository
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
@@ -17,7 +18,7 @@ interface RegisterUserUserCase {
     data class Parameters(val addUserRequestModel: AddUserRequestModel)
 }
 
-class RegisterUserUserCaseImpl(
+class RegisterUserUserCaseImpl @Inject constructor(
     private val registerUserRepository: RegisterUserRepository,
     private val dispatcherProvider: DispatcherProvider
 ) : RegisterUserUserCase, Task<RegisterUserUserCase.Parameters, SimplesResponseModel>() {
