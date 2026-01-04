@@ -34,7 +34,12 @@ object PhoneOffsetMapping : OffsetMapping{
     }
 
     override fun transformedToOriginal(offset: Int): Int {
-        TODO("Not yet implemented")
+        return when {
+            offset >= 10 -> offset - 3
+            offset >= 5 -> offset - 2
+            offset >= 3 -> offset - 1
+            else -> offset
+        }
     }
 
 }
