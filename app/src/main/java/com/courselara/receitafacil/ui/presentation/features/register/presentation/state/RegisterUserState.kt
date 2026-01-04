@@ -1,11 +1,11 @@
 package com.courselara.receitafacil.ui.presentation.features.register.presentation.state
 
 data class RegisterUserState(
-    val nameInput: String = "",
-    val emailInput: String = "",
-    val phoneNumberInput: String = "",
-    val passwordInput: String = "",
-    val passwordRepeatedInput: String = "",
+    val nameValue: String = "",
+    val emailValue: String = "",
+    val phoneValue: String = "",
+    val passwordValue: String = "",
+    val passwordRepeatedValue: String = "",
     val isInputValid: Boolean = false,
     val isPasswordShow: Boolean = false,
     val isPasswordRepeatedShow: Boolean = false,

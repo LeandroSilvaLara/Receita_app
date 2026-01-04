@@ -26,23 +26,23 @@ class RegisterUserViewModel @Inject constructor(
     var sideEffect = _sideEffectChannel.receiveAsFlow()
 
     fun onNameInputChange(newValue: String) {
-        _uiState.update { it.copy(nameInput = newValue) }
+        _uiState.update { it.copy(nameValue = newValue) }
         checkInputValidation()
     }
     fun onEmailInputChange(newValue: String) {
-        _uiState.update { it.copy(emailInput = newValue) }
+        _uiState.update { it.copy(emailValue = newValue) }
         checkInputValidation()
     }
     fun onPhoneNumberInputChange(newValue: String) {
-        _uiState.update { it.copy(phoneNumberInput = newValue) }
+        _uiState.update { it.copy(phoneValue = newValue) }
         checkInputValidation()
     }
     fun onPasswordInputChange(newValue: String) {
-        _uiState.update { it.copy(passwordInput = newValue) }
+        _uiState.update { it.copy(passwordValue = newValue) }
         checkInputValidation()
     }
     fun onPasswordRepeatedInputChange(newValue: String) {
-        _uiState.update { it.copy(passwordRepeatedInput = newValue) }
+        _uiState.update { it.copy(passwordRepeatedValue = newValue) }
         checkInputValidation()
     }
     fun onToggleVisualTransformationPassword() {
@@ -55,11 +55,11 @@ class RegisterUserViewModel @Inject constructor(
     private fun checkInputValidation() {
         val validationResult = validateRegisterInputUseCase(
 
-            name = uiState.value.nameInput,
-            email = uiState.value.emailInput,
-            phone = uiState.value.phoneNumberInput,
-            password = uiState.value.passwordInput,
-            passwordRepeated = uiState.value.passwordRepeatedInput
+            name = uiState.value.nameValue,
+            email = uiState.value.emailValue,
+            phone = uiState.value.phoneValue,
+            password = uiState.value.passwordValue,
+            passwordRepeated = uiState.value.passwordRepeatedValue
         )
         processInputValidationType(validationResult)
     }
