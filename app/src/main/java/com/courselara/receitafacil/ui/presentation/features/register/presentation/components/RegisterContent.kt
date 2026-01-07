@@ -37,8 +37,8 @@ fun RegisterContent (
     onPhoneChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onPasswordRepeatedChanged: (String) -> Unit,
-    onTrailingPasswordIconClick: () -> Unit,
-    onTrailingPasswordRepeatedIconClick: () -> Unit,
+    onToggleVisualTransformationPassword: () -> Unit,
+    onToggleVisualTransformationPasswordRepeated: () -> Unit,
     ) {
     Box(
         modifier = modifier
@@ -103,8 +103,8 @@ fun RegisterContent (
                 onPasswordChanged = onPasswordChanged,
                 onPasswordRepeatedChanged = onPasswordRepeatedChanged,
                 onButtonClick = onRegisterClick,
-                onTrailingPasswordIconClick = onTrailingPasswordIconClick,
-                onTrailingPasswordRepeatedIconClick = onTrailingPasswordRepeatedIconClick,
+                onTrailingPasswordIconClick = onToggleVisualTransformationPassword,
+                onTrailingPasswordRepeatedIconClick = onToggleVisualTransformationPasswordRepeated,
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth()
@@ -147,8 +147,8 @@ private fun RegisterContentPreview() {
         onPhoneChanged = {},
         onPasswordChanged = {},
         onPasswordRepeatedChanged = {},
-        onTrailingPasswordIconClick = {},
-        onTrailingPasswordRepeatedIconClick = {},
+        onToggleVisualTransformationPassword = {},
+        onToggleVisualTransformationPasswordRepeated = {},
         onNavigateToLoginScreen = {},
     )
 }

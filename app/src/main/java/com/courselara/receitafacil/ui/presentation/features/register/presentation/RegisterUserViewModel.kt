@@ -23,7 +23,7 @@ class RegisterUserViewModel @Inject constructor(
     var uiState = _uiState.asStateFlow()
 
     private val _sideEffectChannel = Channel<SideEffect>(capacity = Channel.BUFFERED)
-    var sideEffect = _sideEffectChannel.receiveAsFlow()
+    var sideEffectChannel = _sideEffectChannel.receiveAsFlow()
 
     fun onNameInputChange(newValue: String) {
         _uiState.update { it.copy(nameValue = newValue) }
