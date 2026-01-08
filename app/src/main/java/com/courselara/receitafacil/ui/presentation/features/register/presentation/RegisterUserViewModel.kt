@@ -1,8 +1,12 @@
 package com.courselara.receitafacil.ui.presentation.features.register.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.courselara.receitafacil.core.sideeffects.SideEffect
 import com.courselara.receitafacil.core.util.Constants
+import com.courselara.receitafacil.core.util.extensions.observeState
+import com.courselara.receitafacil.core.util.extensions.toFormattedPhoneNumber
+import com.courselara.receitafacil.ui.presentation.features.register.domain.model.AddUserRequestModel
 import com.courselara.receitafacil.ui.presentation.features.register.domain.model.RegisterInputValidationType
 import com.courselara.receitafacil.ui.presentation.features.register.domain.usecase.RegisterUserUserCase
 import com.courselara.receitafacil.ui.presentation.features.register.domain.usecase.ValidateRegisterInputUseCase
@@ -12,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegisterUserViewModel @Inject constructor(
@@ -29,27 +34,70 @@ class RegisterUserViewModel @Inject constructor(
         _uiState.update { it.copy(nameValue = newValue) }
         checkInputValidation()
     }
+
     fun onEmailInputChange(newValue: String) {
         _uiState.update { it.copy(emailValue = newValue) }
         checkInputValidation()
     }
+
     fun onPhoneNumberInputChange(newValue: String) {
         _uiState.update { it.copy(phoneValue = newValue) }
         checkInputValidation()
     }
+
     fun onPasswordInputChange(newValue: String) {
         _uiState.update { it.copy(passwordValue = newValue) }
         checkInputValidation()
     }
+
     fun onPasswordRepeatedInputChange(newValue: String) {
         _uiState.update { it.copy(passwordRepeatedValue = newValue) }
         checkInputValidation()
     }
+
     fun onToggleVisualTransformationPassword() {
         _uiState.update { it.copy(isPasswordShow = !it.isPasswordShow) }
     }
+
     fun onToggleVisualTransformationPasswordRepeated() {
         _uiState.update { it.copy(isPasswordRepeatedShow = !it.isPasswordRepeatedShow) }
+    }
+
+    fun onRegisterClick() {
+        viewModelScope.launch {
+            registerUserUserCase.invoke(
+                parameters = RegisterUserUserCase.Parameters(
+                    AddUserRequestModel(
+                        name = uiState.value.nameValue,
+                        email = uiState.value.emailValue,
+                        phone = uiState.value.phoneValue.toFormattedPhoneNumber(),
+                        password = uiState.value.passwordValue,
+                    )
+                )
+            ).observeState(
+                onLoading = {
+                    _uiState.update { it.copy(isLoading = true) }
+                },
+                onFailure = { error ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            errorMessageRegisterProcess = error.message.toString()
+                        )
+                    }
+                },
+                onSuccess = { response ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccessfullyRegistered = response.isSuccessFul,
+                            errorMessageRegisterProcess = response.message
+                        )
+                    }
+                }
+            )
+        }
+
     }
 
     private fun checkInputValidation() {
@@ -125,8 +173,7 @@ class RegisterUserViewModel @Inject constructor(
 
                 RegisterInputValidationType.Valid -> {
                     it.copy(
-                        errorMessageInput = null,
-                        isInputValid = true
+                        errorMessageInput = null, isInputValid = true
                     )
                 }
             }
