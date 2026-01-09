@@ -11,6 +11,7 @@ import com.courselara.receitafacil.ui.presentation.features.register.domain.mode
 import com.courselara.receitafacil.ui.presentation.features.register.domain.usecase.RegisterUserUserCase
 import com.courselara.receitafacil.ui.presentation.features.register.domain.usecase.ValidateRegisterInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.register.presentation.state.RegisterUserState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class RegisterUserViewModel @Inject constructor(
     private val registerUserUserCase: RegisterUserUserCase,
     private val validateRegisterInputUseCase: ValidateRegisterInputUseCase
@@ -30,6 +32,11 @@ class RegisterUserViewModel @Inject constructor(
     private val _sideEffectChannel = Channel<SideEffect>(capacity = Channel.BUFFERED)
     var sideEffectChannel = _sideEffectChannel.receiveAsFlow()
 
+    fun onEvent(event: RegisterUserEvent) {
+        when (event) {
+            RegisterUserEvent.OnRegisterClick -> onRegisterClick()
+        }
+    }
     fun onNameInputChange(newValue: String) {
         _uiState.update { it.copy(nameValue = newValue) }
         checkInputValidation()
@@ -91,7 +98,6 @@ class RegisterUserViewModel @Inject constructor(
                         it.copy(
                             isLoading = false,
                             isSuccessfullyRegistered = response.isSuccessFul,
-                            errorMessageRegisterProcess = response.message
                         )
                     }
                 }

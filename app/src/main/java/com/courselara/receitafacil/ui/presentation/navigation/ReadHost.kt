@@ -24,6 +24,9 @@ fun RootHost(
             },
             onNavigateToRegisterScreen = {
                 navController.navigateToRegisterScreen()
+            },
+            onNavigateToLoginScreen = {
+                navController.navigateToLoginScreen()
             }
         )
         homeGraph(

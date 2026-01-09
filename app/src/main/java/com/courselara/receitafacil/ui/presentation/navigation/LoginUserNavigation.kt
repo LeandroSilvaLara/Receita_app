@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
@@ -20,6 +21,12 @@ fun NavGraphBuilder.loginScreen(
         LoginScreen {
             onNavigateToRegisterScreen()
         }
+    }
+}
+
+fun NavController.navigateToLoginScreen() {
+    navigate(AuthScreens.LoginScreen) {
+        popUpTo(0)
     }
 }
 

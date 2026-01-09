@@ -12,7 +12,7 @@ import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreen
 @Composable
 fun RegisterScreen(
     uiState: RegisterUserState,
-    onRegisterClick: () -> Unit,
+    onEvent: (RegisterUserEvent) -> Unit,
     onNavigateToLoginScreen: () -> Unit,
     onNameChanged: (String) -> Unit,
     onEmailChanged: (String) -> Unit,
@@ -37,7 +37,7 @@ fun RegisterScreen(
             RegisterContent(
                 paddingValues = paddingValues,
                 uiState = uiState,
-                onRegisterClick = onRegisterClick,
+                onRegisterClick = { onEvent(RegisterUserEvent.OnRegisterClick) },
                 onNameChanged = onNameChanged,
                 onEmailChanged = onEmailChanged,
                 onPhoneChanged = onPhoneChanged,

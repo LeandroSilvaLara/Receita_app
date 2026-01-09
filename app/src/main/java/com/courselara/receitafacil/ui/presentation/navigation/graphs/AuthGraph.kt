@@ -9,6 +9,7 @@ import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 
 fun NavGraphBuilder.authGraph(
     onNavigateToHomeGraphs: () -> Unit,
+    onNavigateToLoginScreen: () -> Unit,
     onNavigateToRegisterScreen: () -> Unit,
 ) {
     navigation<Graphs.AuthGraph>(
@@ -20,7 +21,7 @@ fun NavGraphBuilder.authGraph(
         )
 
         registerScreen(
-            onNavigateToLoginScreen = {}
+            onNavigateToLoginScreen = onNavigateToLoginScreen
         )
     }
 
