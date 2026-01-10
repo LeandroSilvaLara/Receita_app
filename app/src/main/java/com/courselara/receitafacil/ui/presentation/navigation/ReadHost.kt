@@ -9,6 +9,13 @@ import com.courselara.receitafacil.ui.presentation.navigation.graphs.homeGraph
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 
+/**
+ * The primary navigation host for the application, responsible for managing the transitions
+ * between the main navigation graphs such as authentication and the home application flow.
+ *
+ * @param startDestination The initial graph or destination to be displayed when the host is created.
+ * @param navController The [NavHostController] used to manage navigation within this host.
+ */
 @Composable
 fun RootHost(
     startDestination: Graphs,
