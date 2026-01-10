@@ -1,17 +1,20 @@
 package com.courselara.receitafacil.ui.presentation.features.register.presentation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.courselara.receitafacil.core.sideeffects.SideEffect
+import com.courselara.receitafacil.core.util.SingleEventEffect
+import com.courselara.receitafacil.core.util.extensions.toast
 import com.courselara.receitafacil.ui.presentation.features.register.presentation.components.RegisterContent
 import com.courselara.receitafacil.ui.presentation.features.register.presentation.state.RegisterUserState
 import com.courselara.receitafacil.ui.presentation.navigation.NavDestinationHelper
-import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun RegisterScreen(
     uiState: RegisterUserState,
+    sideEffectFlow: Flow<SideEffect>,
     onEvent: (RegisterUserEvent) -> Unit,
     onNavigateToLoginScreen: () -> Unit,
     onNameChanged: (String) -> Unit,
@@ -22,6 +25,15 @@ fun RegisterScreen(
     onToggleVisualTransformationPassword: () -> Unit,
     onToggleVisualTransformationPasswordRepeated: () -> Unit,
 ) {
+
+    val context = LocalContext.current
+
+    SingleEventEffect(sideEffectFlow) { sideEffect ->
+        when (sideEffect) {
+            is SideEffect.ShowToast -> context.toast(sideEffect.message)
+
+        }
+    }
 
     NavDestinationHelper(
         shouldNavigate = {

@@ -21,6 +21,7 @@ fun NavGraphBuilder.registerScreen(
 
         RegisterScreen(
             uiState = uiState,
+            sideEffectFlow = sideEffectFlow,
             onEvent = {viewModel.onEvent(it)},
             onNameChanged = { viewModel.onNameInputChange(it) },
             onEmailChanged = { viewModel.onEmailInputChange(it) },

@@ -70,7 +70,7 @@ class RegisterUserViewModel @Inject constructor(
         _uiState.update { it.copy(isPasswordRepeatedShow = !it.isPasswordRepeatedShow) }
     }
 
-    fun onRegisterClick() {
+    private fun onRegisterClick() {
         viewModelScope.launch {
             registerUserUserCase.invoke(
                 parameters = RegisterUserUserCase.Parameters(
@@ -100,6 +100,8 @@ class RegisterUserViewModel @Inject constructor(
                             isSuccessfullyRegistered = response.isSuccessFul,
                         )
                     }
+
+                    _sideEffectChannel.send(SideEffect.ShowToast(response.message))
                 }
             )
         }
