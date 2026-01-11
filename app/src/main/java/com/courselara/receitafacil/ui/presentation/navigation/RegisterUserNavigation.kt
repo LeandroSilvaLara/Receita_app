@@ -6,8 +6,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.courselara.receitafacil.ui.presentation.features.register.presentation.RegisterScreen
-import com.courselara.receitafacil.ui.presentation.features.register.presentation.RegisterUserViewModel
+import com.courselara.receitafacil.ui.presentation.features.auth.register.presentation.RegisterScreen
+import com.courselara.receitafacil.ui.presentation.features.auth.register.presentation.RegisterUserViewModel
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 
 fun NavGraphBuilder.registerScreen(
