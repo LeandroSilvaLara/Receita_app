@@ -73,7 +73,7 @@ fun LoginContent(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = "uiState.errorMessageLoginProcess",
+                    text = uiState.errorMessageLoginProcess.toString(),
                     fontFamily = poppinsFOntFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 26.sp,
@@ -84,10 +84,10 @@ fun LoginContent(
             }
             LoginContainer(
                 isLoading = false,
-                emailValue = "",
-                passwordValue = "",
-                buttonEnabled = false,
-                isPasswordShown = false,
+                emailValue = uiState.emailValue,
+                passwordValue = uiState.passwordValue,
+                buttonEnabled = uiState.isInputValid,
+                isPasswordShown = uiState.isPasswordShow,
                 onEmailChange = onEmailChange,
                 onPasswordChange = onPasswordChange,
                 onLoginButtonClick = onLoginClick,

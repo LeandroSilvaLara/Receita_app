@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.courselara.receitafacil.ui.presentation.features.auth.login.presentation.LoginScreen
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 
 fun NavGraphBuilder.loginScreen(
@@ -18,9 +19,16 @@ fun NavGraphBuilder.loginScreen(
     onNavigateToRegisterScreen: () -> Unit,
 ) {
     composable<AuthScreens.LoginScreen> {
-        LoginScreen {
-            onNavigateToRegisterScreen()
-        }
+
+
+        LoginScreen (
+            uiState = ,
+            sideEffectFlow = ,
+            onEvent = {} ,
+            onNavigateToRegisterScreen = { },
+            onNavigateToHome = { },
+        )
+
     }
 }
 
@@ -30,26 +38,10 @@ fun NavController.navigateToLoginScreen() {
     }
 }
 
-@Composable
-fun LoginScreen(
-    modifier: Modifier = Modifier,
-    onNavigateToRegisterScreen: () -> Unit
-) {
-    Box(modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-        ) {
-        Button(
-            onClick = {
-                onNavigateToRegisterScreen()
-            }
-        ) {
-            Text("Login")
-        }
-    }
-}
+
 
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(onNavigateToRegisterScreen = {})
+    //LoginScreen(onNavigateToRegisterScreen = {})
 }
