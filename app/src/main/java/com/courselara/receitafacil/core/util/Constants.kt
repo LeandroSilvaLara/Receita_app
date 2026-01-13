@@ -1,5 +1,12 @@
 package com.courselara.receitafacil.core.util
 
+/**
+ * Application-wide constants used for messaging types, connection statuses,
+ * and validation feedback messages.
+ *
+ * This object serves as a centralized repository for string literals to ensure
+ * consistency and ease of maintenance throughout the application.
+ */
 object Constants {
 
     const val TYPE_QRCODE_GENERATED = "TYPE_QRCODE_GENERATED"

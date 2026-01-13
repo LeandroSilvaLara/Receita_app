@@ -132,7 +132,8 @@ private fun LoginContentPreview() {
             onEmailChange = {},
             onPasswordChange = {},
             onNavigatorToRegisterScreens = {},
-            onToggleVisualTransformationPassword = {}
+            onToggleVisualTransformationPassword = {},
+            uiState = LoginUiState()
         )
     }
 }
