@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -52,11 +54,12 @@ fun LoginContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 12.dp)
+                .padding(top = 25.dp)
                 .align(Alignment.Center),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -73,10 +76,10 @@ fun LoginContent(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = uiState.errorMessageLoginProcess.toString(),
+                    text = uiState.errorMessageLoginProcess ?: uiState.errorMessageInput.orEmpty(),
                     fontFamily = poppinsFOntFamily,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 26.sp,
+                    fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
