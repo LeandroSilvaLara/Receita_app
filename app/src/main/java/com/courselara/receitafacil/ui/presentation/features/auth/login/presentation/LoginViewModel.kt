@@ -1,9 +1,13 @@
 package com.courselara.receitafacil.ui.presentation.features.auth.login.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.courselara.receitafacil.core.sideeffects.SideEffect
 import com.courselara.receitafacil.core.util.Constants
+import com.courselara.receitafacil.core.util.extensions.observeState
+import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.model.AuthUserRequestModel
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.model.LoginInputValidationType
+import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.usecase.LoginUserCase
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.usecase.ValidateLoginInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.auth.login.presentation.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,11 +16,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val validateLoginInputUseCase: ValidateLoginInputUseCase
+    private val validateLoginInputUseCase: ValidateLoginInputUseCase,
+    private val loginUserCase: LoginUserCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -46,7 +52,39 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun onLoginClick() {
-
+        viewModelScope.launch {
+            loginUserCase.invoke(
+                parameters = LoginUserCase.Parameters(
+                    AuthUserRequestModel(
+                        email = _uiState.value.emailValue,
+                        password = _uiState.value.passwordValue
+                    )
+                )
+            ).observeState(
+                onLoading = {
+                    _uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                },
+                onFailure = { error ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            errorMessageLoginProcess = error.message.toString()
+                        )
+                    }
+                },
+                onSuccess = { response ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccessfullyLoggedIn = response.isSuccessFul
+                        )
+                    }
+                    _sideEffectChannel.send(SideEffect.ShowToast(response.message.toString()))
+                }
+            )
+        }
     }
 
     private fun checkInputValidation() {
