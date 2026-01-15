@@ -48,18 +48,17 @@ fun LoginContent(
         IconApp(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 150.dp)
+                .padding(top = 130.dp)
         )
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 25.dp)
+                .padding(top = 12.dp)
                 .align(Alignment.Center),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth(),
