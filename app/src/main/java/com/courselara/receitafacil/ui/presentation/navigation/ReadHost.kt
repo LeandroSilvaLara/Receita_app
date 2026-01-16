@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.courselara.receitafacil.ui.presentation.navigation.graphs.authGraph
 import com.courselara.receitafacil.ui.presentation.navigation.graphs.homeGraph
+import com.courselara.receitafacil.ui.presentation.navigation.graphs.navigationToHomeGraph
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 
@@ -26,8 +27,8 @@ fun RootHost(
         startDestination = startDestination
     ) {
         authGraph(
-            onNavigateToHomeGraphs = {
-                navController.navigate(Graphs.HomeGraph)
+            onNavigateToHomeGraphs = { navOptions ->
+                navController.navigationToHomeGraph(navOptions)
             },
             onNavigateToRegisterScreen = {
                 navController.navigateToRegisterScreen()

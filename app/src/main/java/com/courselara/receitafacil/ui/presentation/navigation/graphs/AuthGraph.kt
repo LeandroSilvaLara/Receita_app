@@ -1,6 +1,8 @@
 package com.courselara.receitafacil.ui.presentation.navigation.graphs
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.courselara.receitafacil.ui.presentation.navigation.loginScreen
 import com.courselara.receitafacil.ui.presentation.navigation.registerScreen
@@ -17,7 +19,7 @@ import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
  * @param onNavigateToRegisterScreen Callback to navigate to the registration screen.
  */
 fun NavGraphBuilder.authGraph(
-    onNavigateToHomeGraphs: () -> Unit,
+    onNavigateToHomeGraphs: (NavOptions) -> Unit,
     onNavigateToLoginScreen: () -> Unit,
     onNavigateToRegisterScreen: () -> Unit,
 ) {
@@ -25,14 +27,19 @@ fun NavGraphBuilder.authGraph(
         startDestination = AuthScreens.LoginScreen
     ) {
         loginScreen(
-            onNavigateToHomeGraphs = onNavigateToHomeGraphs,
-            onNavigateToRegisterScreen = onNavigateToRegisterScreen
-        )
+            onNavigateToHomeGraphs = {
+                onNavigateToHomeGraphs(
+                    navOptions {
+                        popUpTo(Graphs.AuthGraph)
 
-        registerScreen(
-            onNavigateToLoginScreen = onNavigateToLoginScreen
-        )
+                        })
+                    },
+                    onNavigateToRegisterScreen = onNavigateToRegisterScreen
+                )
+
+                registerScreen(
+                    onNavigateToLoginScreen = onNavigateToLoginScreen
+                )
+            }
+
     }
-
-
-}
