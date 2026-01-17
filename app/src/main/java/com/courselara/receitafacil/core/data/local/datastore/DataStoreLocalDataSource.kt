@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface DataStoreLocalDataSource {
     fun getData(): Flow<UseData>
+    suspend fun saveData(token: String, userName: String)
+    suspend fun clearAll()
 }
