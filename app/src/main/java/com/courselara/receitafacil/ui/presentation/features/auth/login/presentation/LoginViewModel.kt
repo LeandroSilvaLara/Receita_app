@@ -8,6 +8,7 @@ import com.courselara.receitafacil.core.util.extensions.observeState
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.model.AuthUserRequestModel
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.model.LoginInputValidationType
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.usecase.LoginUserCase
+import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.usecase.SaveUserDataUseCase
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.usecase.ValidateLoginInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.auth.login.presentation.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,8 +58,8 @@ class LoginViewModel @Inject constructor(
             loginUserCase.invoke(
                 parameters = LoginUserCase.Parameters(
                     AuthUserRequestModel(
-                        email = _uiState.value.emailValue,
-                        password = _uiState.value.passwordValue
+                        email = _uiState.value.emailValue.trim(),
+                        password = _uiState.value.passwordValue.trim()
                     )
                 )
             ).observeState(
@@ -83,6 +84,10 @@ class LoginViewModel @Inject constructor(
                         )
                     }
                     _sideEffectChannel.send(SideEffect.ShowToast(response.message.toString()))
+                    saveLocalStorageUserData(
+                        response.token.toString(),
+                        response.userNamer.toString()
+                    )
                 }
             )
         }
@@ -124,7 +129,12 @@ class LoginViewModel @Inject constructor(
     }
 
 
-    private fun saveLocalStorageData(token: String, userName: String) {
+    private suspend fun saveLocalStorageUserData(token: String, userName: String) {
+        saveUserDataUseCase.invoke(SaveUserDataUseCase.Parameters(token, userName)).observeState(
+            onLoading = {},
+            onFailure = {},
+            onSuccess = {}
+        )
 
     }
 

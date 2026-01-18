@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.courselara.receitafacil.core.domain.model.UseData
+import com.courselara.receitafacil.core.util.logging.LogInfo
 import com.courselara.receitafacil.core.util.logging.logError
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -35,9 +36,15 @@ class DataStoreLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun saveData(token: String, userName: String) {
-        dataStorePreferences.edit { preferences ->
-            preferences[PreferencesKeys.TOKEN_KEY] = token
-            preferences[PreferencesKeys.USER_NAME_KEY] = userName
+        try {
+            LogInfo("DataStore", "token: $token - Usuario: $userName")
+            dataStorePreferences.edit { preferences ->
+                preferences[PreferencesKeys.TOKEN_KEY] = token
+                preferences[PreferencesKeys.USER_NAME_KEY] = userName
+            }
+            LogInfo("DataStore", "Dados Salvos com sucesso")
+        }catch (e: Exception){
+            LogInfo("DataStore", "Ocorreu um erro: ${e.message}")
         }
     }
 
