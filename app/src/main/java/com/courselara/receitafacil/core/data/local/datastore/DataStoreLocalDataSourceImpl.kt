@@ -14,6 +14,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
+/**
+ * Implementation of [DataStoreLocalDataSource] that uses Jetpack DataStore Preferences
+ * to persist and retrieve local application data such as user tokens and profile information.
+ *
+ * This class provides a reactive stream of [UseData] and methods to perform asynchronous
+ * write operations to the local storage.
+ *
+ * @property dataStorePreferences The [DataStore] instance used for managing [Preferences].
+ * @constructor Creates an instance of [DataStoreLocalDataSourceImpl] with the provided DataStore.
+ */
 class DataStoreLocalDataSourceImpl @Inject constructor(
     private val dataStorePreferences: DataStore<Preferences>
 ) : DataStoreLocalDataSource {
