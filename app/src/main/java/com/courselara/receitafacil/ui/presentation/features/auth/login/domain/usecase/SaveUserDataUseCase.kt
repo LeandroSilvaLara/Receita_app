@@ -5,7 +5,6 @@ import com.courselara.receitafacil.core.util.ResponseData
 import com.courselara.receitafacil.core.util.Task
 import com.courselara.receitafacil.ui.presentation.features.auth.login.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface SaveUserDataUseCase {
@@ -15,18 +14,16 @@ interface SaveUserDataUseCase {
 
 class SaveUserDataUseCaseImpl @Inject constructor(
     private val loginRepository: LoginRepository,
-    private val dispatcherProvider: DispatcherProvider
+    dispatcherProvider: DispatcherProvider,
 ) : SaveUserDataUseCase, Task<SaveUserDataUseCase.Parameters, Unit>() {
 
     override suspend fun executeTask(parameters: SaveUserDataUseCase.Parameters): ResponseData<Unit> {
         return try {
-            withContext(dispatcherProvider.io()) {
-                ResponseData.Success(
-                    loginRepository.saveData(
-                        parameters.token, parameters.userName
-                    )
+            ResponseData.Success(
+                loginRepository.saveData(
+                    parameters.token, parameters.userName
                 )
-            }
+            )
         } catch (e: Throwable) {
             ResponseData.Error(e)
         }

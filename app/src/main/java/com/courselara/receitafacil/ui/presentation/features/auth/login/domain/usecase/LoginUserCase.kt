@@ -18,18 +18,17 @@ interface LoginUserCase {
 }
 
 class LoginUserCaseImpl @Inject constructor(
-    private val dispatcherProvider: DispatcherProvider, private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository
 ) : LoginUserCase, Task<LoginUserCase.Parameters, TokenResponseModel>() {
     override suspend fun executeTask(parameters: LoginUserCase.Parameters): ResponseData<TokenResponseModel> {
         return try {
-            withContext(dispatcherProvider.io()) {
-                when (val response = loginRepository.login(parameters.authUserRequestModel)) {
-                    is ServiceResult.Success -> {
-                        ResponseData.Success(response.data)
-                    }
-                    is ServiceResult.Error -> {
-                        ResponseData.Error(Throwable(response.message))
-                    }
+            when (val response = loginRepository.login(parameters.authUserRequestModel)) {
+                is ServiceResult.Success -> {
+                    ResponseData.Success(response.data)
+                }
+
+                is ServiceResult.Error -> {
+                    ResponseData.Error(Throwable(response.message))
                 }
             }
         } catch (e: Exception) {

@@ -5,6 +5,7 @@ import com.courselara.receitafacil.BuildConfig
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApi
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApiImpl
 import com.google.gson.Gson
+import com.google.gson.Strictness
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -70,7 +71,7 @@ object KtorModule {
 
             install(ContentNegotiation) {
                 gson {
-                    setLenient()
+                    setStrictness(Strictness.LENIENT)
                     setPrettyPrinting()
                     serializeNulls()
                 }

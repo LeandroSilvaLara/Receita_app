@@ -10,6 +10,7 @@ import com.courselara.receitafacil.ui.presentation.features.auth.register.domain
 import com.courselara.receitafacil.ui.presentation.features.auth.register.domain.source.RegisterUserRemoteDataSource
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.RedirectResponseException
+import io.ktor.client.plugins.ResponseException
 import io.ktor.client.plugins.ServerResponseException
 import javax.inject.Inject
 
@@ -28,17 +29,10 @@ class RegisterUserRemoteDataSourceImpl @Inject constructor(
                 ServiceResult.Error(message = response.message)
             }
 
-        } catch (e: RedirectResponseException) {
+        } catch (e: ResponseException) {
             ServiceResult.Error(e.response.status.value.toString(), e.response.status.description)
-        }catch (e: ClientRequestException) {
-            ServiceResult.Error(e.response.status.value.toString(), e.response.status.description)
-        }catch (e: ServerResponseException) {
-            ServiceResult.Error(e.response.status.value.toString(), e.response.status.description)
-        }catch (e: ErrorResponseException) {
+        } catch (e: ErrorResponseException) {
             ServiceResult.Error(code = e.error.httpCode.toString(), message = e.error.message)
-        }catch (e: Exception) {
-            ServiceResult.Error(message = e.message.toString())
         }
-
     }
 }

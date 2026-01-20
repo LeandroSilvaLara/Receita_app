@@ -34,23 +34,24 @@ class LoginModule {
     }
 
     @Provides
-    fun ProvideLoginRepository(
+    fun provideLoginRepository(
         remoteDataSource: LoginRemoteDataSource,
-        localDataSource: DataStoreLocalDataSource
+        localDataSource: DataStoreLocalDataSource,
+        dispatcherProvider: DispatcherProvider
     ): LoginRepository {
         return LoginRepositoryImpl(
             remoteDataSource = remoteDataSource,
-            localDataSource = localDataSource
+            localDataSource = localDataSource,
+            dispatcherProvider = dispatcherProvider
         )
     }
 
+    @Provides
     fun provideLoginUseCase(
         loginRepository: LoginRepository,
-        dispatcherProvider: DispatcherProvider
     ): LoginUserCase {
         return LoginUserCaseImpl(
             loginRepository = loginRepository,
-            dispatcherProvider = dispatcherProvider
         )
     }
 
@@ -78,5 +79,3 @@ class LoginModule {
     }
 
 }
-
-

@@ -31,21 +31,23 @@ object RegisterUserModule {
     @Provides
     @Singleton
     fun provideRegisterUserRepository(
-        registerUserRemoteDataSource: RegisterUserRemoteDataSource
+        registerUserRemoteDataSource: RegisterUserRemoteDataSource,
+        dispatcherProvider: DispatcherProvider
     ) : RegisterUserRepository {
-        return RegisterUserRepositoryImpl(remoteDataSource = registerUserRemoteDataSource)
+        return RegisterUserRepositoryImpl(
+            remoteDataSource = registerUserRemoteDataSource,
+            dispatcherProvider = dispatcherProvider
+        )
     }
 
     @Provides
     @Singleton
     fun provideRegisterUserUseCase(
         registerUserRepository: RegisterUserRepository,
-        dispatcherProvider: DispatcherProvider
+
     ) : RegisterUserUserCase {
         return RegisterUserUserCaseImpl(
             registerUserRepository = registerUserRepository,
-            dispatcherProvider = dispatcherProvider
-
         )
     }
 

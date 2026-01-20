@@ -19,20 +19,17 @@ interface RegisterUserUserCase {
 
 class RegisterUserUserCaseImpl @Inject constructor(
     private val registerUserRepository: RegisterUserRepository,
-    private val dispatcherProvider: DispatcherProvider
 ) : RegisterUserUserCase, Task<RegisterUserUserCase.Parameters, SimplesResponseModel>() {
     override suspend fun executeTask(parameters: RegisterUserUserCase.Parameters): ResponseData<SimplesResponseModel> {
         return try {
-            withContext(dispatcherProvider.io()) {
-                when (val response =
-                    registerUserRepository.registerUser(parameters.addUserRequestModel)) {
-                    is ServiceResult.Success -> {
-                        ResponseData.Success(response.data)
-                    }
+            when (val response =
+                registerUserRepository.registerUser(parameters.addUserRequestModel)) {
+                is ServiceResult.Success -> {
+                    ResponseData.Success(response.data)
+                }
 
-                    is ServiceResult.Error -> {
-                        ResponseData.Error(Throwable(response.message))
-                    }
+                is ServiceResult.Error -> {
+                    ResponseData.Error(Throwable(response.message))
                 }
             }
 

@@ -75,10 +75,10 @@ class RegisterUserViewModel @Inject constructor(
             registerUserUserCase.invoke(
                 parameters = RegisterUserUserCase.Parameters(
                     AddUserRequestModel(
-                        name = uiState.value.nameValue,
-                        email = uiState.value.emailValue,
+                        name = uiState.value.nameValue.trim(),
+                        email = uiState.value.emailValue.trim(),
                         phone = uiState.value.phoneValue.toFormattedPhoneNumber(),
-                        password = uiState.value.passwordValue,
+                        password = uiState.value.passwordValue.trim(),
                     )
                 )
             ).observeState(
