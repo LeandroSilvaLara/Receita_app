@@ -2,6 +2,7 @@ package com.courselara.receitafacil.core.di
 
 
 import com.courselara.receitafacil.BuildConfig
+import com.courselara.receitafacil.core.data.remote.AccessTokenInterceptor
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApi
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApiImpl
 import com.google.gson.Gson
@@ -47,6 +48,7 @@ object KtorModule {
     @Singleton
     fun provideHttpClient(
         okHttpClient: OkHttpClient,
+        accessTokenInterceptor: AccessTokenInterceptor
     ) : HttpClient {
         return HttpClient(OkHttp) {
 
@@ -56,7 +58,7 @@ object KtorModule {
             engine {
                 preconfigured = okHttpClient
                 config {
-
+                    addInterceptor(accessTokenInterceptor)
                 }
             }
 
