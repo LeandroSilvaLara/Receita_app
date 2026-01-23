@@ -6,6 +6,8 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.list.data.re
 import com.courselara.receitafacil.ui.presentation.features.recipes.list.data.source.GetRecipesByUserRemoteDataSourceImpl
 import com.courselara.receitafacil.ui.presentation.features.recipes.list.domain.repository.GetRecipesByUserRepository
 import com.courselara.receitafacil.ui.presentation.features.recipes.list.domain.source.GetRecipesByUserRemoteDataSource
+import com.courselara.receitafacil.ui.presentation.features.recipes.list.domain.usecase.GetRecipesByUSerUseCaseImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.list.domain.usecase.GetRecipesByUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +37,16 @@ object ListRecipesModule {
         return GetRecipesByUserRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatcherProvider = dispatcherProvider
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRecipesByUserUseCase(
+        getRecipesByUserRepository: GetRecipesByUserRepository
+    ): GetRecipesByUserUseCase {
+        return GetRecipesByUSerUseCaseImpl(
+            getRecipesByUserRepository = getRecipesByUserRepository
         )
     }
 }
