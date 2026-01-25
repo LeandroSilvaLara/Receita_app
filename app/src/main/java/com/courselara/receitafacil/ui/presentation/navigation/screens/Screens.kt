@@ -25,11 +25,18 @@ sealed class AuthScreens {
 
 @Serializable
 sealed class HomeScreens {
+
     @Serializable
-    data object HomeScreen : HomeScreens()
+    data class WebSocketUpdateScreen(val qrcode: String) : HomeScreens()
 
     @Serializable
     data class AddRecipeScreen(val recipeId: String?= "") : HomeScreens()
+
+    @Serializable
+    data class RecipeDetailsScreen(val recipeId: String) : HomeScreens()
+
+    @Serializable
+    data object ListRecipesScreen : HomeScreens()
 
     @Serializable
     data object ProfileScreen : HomeScreens()
