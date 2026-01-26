@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.courselara.receitafacil.R
@@ -39,7 +38,7 @@ import com.courselara.receitafacil.ui.theme.poppinsFOntFamily
 @Composable
 fun RecipesItem(
     modifier: Modifier = Modifier,
-    recipes: RecipesResponseModel,
+    recipe: RecipesResponseModel,
     onNavigateToRecipeDetailScreen: (String) -> Unit
 ) {
     Card(
@@ -47,7 +46,7 @@ fun RecipesItem(
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                onNavigateToRecipeDetailScreen(recipes.id)
+                onNavigateToRecipeDetailScreen(recipe.id)
             },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(CornerSize(12.dp)),
@@ -67,7 +66,7 @@ fun RecipesItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = recipes.name,
+                    text = recipe.name,
                     fontFamily = poppinsFOntFamily,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyLarge,
@@ -83,7 +82,7 @@ fun RecipesItem(
                         modifier = Modifier.padding(start = 8.dp, top = 8.dp)
                     )
                     Text(
-                        text = "${recipes.preparationTime} ${stringResource(R.string.minutes_text)}",
+                        text = "${recipe.preparationTime} ${stringResource(R.string.minutes_text)}",
                         fontFamily = poppinsFOntFamily,
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray,
@@ -100,7 +99,7 @@ fun RecipesItem(
                         modifier = Modifier.padding(start = 8.dp, top = 8.dp)
                     )
                     Text(
-                        text = "${recipes.totalIngredients} ${stringResource(R.string.ingredients_text)}",
+                        text = "${recipe.totalIngredients} ${stringResource(R.string.ingredients_text)}",
                         fontFamily = poppinsFOntFamily,
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray,
@@ -108,7 +107,7 @@ fun RecipesItem(
                     )
                 }
             }
-            recipes.ownerName?.let { ownerName ->
+            recipe.ownerName?.let { ownerName ->
                 ElevatedAssistChip(
                     modifier = Modifier.padding(start = 8.dp),
                     onClick = { /*TODO*/ },
@@ -147,7 +146,7 @@ private fun RecipesItemPreview() {
     ReceitaFacilAppTheme {
         RecipesItem(
             modifier = Modifier.fillMaxWidth(),
-            recipes = RecipesResponseModel(
+            recipe = RecipesResponseModel(
                 id = "123",
                 name = "Lasanha",
                 category = "Lanche",
