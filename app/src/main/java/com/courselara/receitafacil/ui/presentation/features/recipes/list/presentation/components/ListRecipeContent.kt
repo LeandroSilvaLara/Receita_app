@@ -14,7 +14,7 @@ import com.courselara.receitafacil.ui.presentation.components.state.LoadingIndic
 import com.courselara.receitafacil.ui.theme.ReceitaFacilAppTheme
 
 @Composable
-fun ListRecipeContent(
+fun RecipesContent(
     modifier: Modifier = Modifier,
     isEmpty: Boolean,
     isLoading: Boolean,
@@ -64,10 +64,10 @@ fun ListRecipeContent(
 
 @Preview
 @Composable
-private fun ListRecipeContentPreview() {
+private fun RecipesContentPreview() {
 
     ReceitaFacilAppTheme {
-        ListRecipeContent(
+        RecipesContent(
             isEmpty = true, isLoading = false, errorMessage = null, recipes = listOf(
             RecipesResponseModel(
                 id = "123",

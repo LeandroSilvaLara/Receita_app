@@ -36,7 +36,7 @@ sealed class HomeScreens {
     data class RecipeDetailsScreen(val recipeId: String) : HomeScreens()
 
     @Serializable
-    data object ListRecipesScreen : HomeScreens()
+    data object RecipesScreen : HomeScreens()
 
     @Serializable
     data object ProfileScreen : HomeScreens()
