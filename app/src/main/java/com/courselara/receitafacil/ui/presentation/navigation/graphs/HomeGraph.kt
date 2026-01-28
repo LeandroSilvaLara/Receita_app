@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
-import com.courselara.receitafacil.ui.presentation.navigation.RecipesScreen
+import com.courselara.receitafacil.ui.presentation.navigation.recipesScreen
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 import com.courselara.receitafacil.ui.presentation.navigation.screens.HomeScreens
 
@@ -14,7 +14,7 @@ fun NavGraphBuilder.homeGraph(
     navigation<Graphs.HomeGraph>(
         startDestination = HomeScreens.RecipesScreen
     ) {
-        RecipesScreen()
+        recipesScreen()
     }
 }
 
