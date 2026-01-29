@@ -10,16 +10,16 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.d
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface AddRecipeUseCase {
+interface AddUpdateRecipeUseCase {
     operator fun invoke(parameters: Parameters): Flow<ResponseData<SimplesResponseModel>>
     data class Parameters(val addUpdateRecipeRequestModel: AddUpdateRecipeRequestModel)
 }
 
-class AddRecipeUseCaseImpl @Inject constructor(
+class AddUpdateRecipeUseCaseImpl @Inject constructor(
     private val addUpdateRecipeRepository: AddUpdateRecipeRepository
-) : AddRecipeUseCase, Task<AddRecipeUseCase.Parameters, SimplesResponseModel>() {
+) : AddUpdateRecipeUseCase, Task<AddUpdateRecipeUseCase.Parameters, SimplesResponseModel>() {
 
-    override suspend fun executeTask(parameters: AddRecipeUseCase.Parameters): ResponseData<SimplesResponseModel> {
+    override suspend fun executeTask(parameters: AddUpdateRecipeUseCase.Parameters): ResponseData<SimplesResponseModel> {
         return try {
             when (val response =
                 addUpdateRecipeRepository.addRecipe(parameters.addUpdateRecipeRequestModel)) {

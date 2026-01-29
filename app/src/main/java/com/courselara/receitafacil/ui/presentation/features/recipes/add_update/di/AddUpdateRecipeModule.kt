@@ -6,6 +6,12 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.d
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.source.AddUpdateRecipeRemoteDataSourceImpl
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.repository.AddUpdateRecipeRepository
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.source.AddUpdateRecipeRemoteDataSource
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.AddUpdateRecipeUseCase
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.AddUpdateRecipeUseCaseImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCase
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCaseImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateDialogInputUseCase
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateDialogInputUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,11 +38,33 @@ object AddUpdateRecipeModule {
     fun provideAddUpdateRecipeRepository(
         remoteDataSource: AddUpdateRecipeRemoteDataSource,
         dispatcherProvider: DispatcherProvider
-    ) : AddUpdateRecipeRepository {
+    ): AddUpdateRecipeRepository {
         return AddUpdateRecipeRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatcherProvider = dispatcherProvider
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddUpdateRecipeUseCase(
+        addUpdateRecipeRepository: AddUpdateRecipeRepository
+    ): AddUpdateRecipeUseCase {
+        return AddUpdateRecipeUseCaseImpl(
+            addUpdateRecipeRepository = addUpdateRecipeRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideValidateAddUpdateRecipeInputUseCase(): ValidateAddUpdateRecipeInputUseCase {
+        return ValidateAddUpdateRecipeInputUseCaseImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideValidateDialogInputUseCase(): ValidateDialogInputUseCase {
+        return ValidateDialogInputUseCaseImpl()
     }
 
 }
