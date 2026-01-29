@@ -1,9 +1,9 @@
-package com.courselara.receitafacil.ui.presentation.features.recipes.add.data.mappers
+package com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.mappers
 
 import com.courselara.receitafacil.core.data.remote.request.AddIngredientsRequest
 import com.courselara.receitafacil.core.data.remote.request.AddUpdateRecipeRequest
 import com.courselara.receitafacil.core.domain.model.IngredientsModel
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.model.AddUpdateRecipeRequestModel
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.model.AddUpdateRecipeRequestModel
 
 fun IngredientsModel.toAddIngredientsRequestModel(): AddIngredientsRequest {
     return AddIngredientsRequest(name, quantity)

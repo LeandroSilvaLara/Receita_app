@@ -1,13 +1,13 @@
-package com.courselara.receitafacil.ui.presentation.features.recipes.add.data.source
+package com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.source
 
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApi
 import com.courselara.receitafacil.core.domain.exceptions.ErrorResponseException
 import com.courselara.receitafacil.core.domain.model.SimplesResponseModel
 import com.courselara.receitafacil.core.util.ServiceResult
 import com.courselara.receitafacil.ui.presentation.features.auth.register.data.mapper.toSimplesResponseModel
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.data.mappers.toAddUpdateRecipeRequest
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.model.AddUpdateRecipeRequestModel
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.source.AddUpdateRecipeRemoteDataSource
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.mappers.toAddUpdateRecipeRequest
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.model.AddUpdateRecipeRequestModel
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.source.AddUpdateRecipeRemoteDataSource
 import io.ktor.client.plugins.ResponseException
 import javax.inject.Inject
 

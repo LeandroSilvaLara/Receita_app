@@ -1,4 +1,4 @@
-package com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.model
+package com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.model
 
 import com.courselara.receitafacil.core.domain.model.IngredientsModel
 

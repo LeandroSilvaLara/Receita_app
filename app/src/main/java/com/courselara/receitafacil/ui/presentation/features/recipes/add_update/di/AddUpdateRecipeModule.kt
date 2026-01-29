@@ -1,11 +1,11 @@
-package com.courselara.receitafacil.ui.presentation.features.recipes.add.di
+package com.courselara.receitafacil.ui.presentation.features.recipes.add_update.di
 
 import com.courselara.receitafacil.core.data.remote.RecipesServiceApi
 import com.courselara.receitafacil.core.util.DispatcherProvider
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.data.repository.AddUpdateRecipeRepositoryImpl
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.data.source.AddUpdateRecipeRemoteDataSourceImpl
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.repository.AddUpdateRecipeRepository
-import com.courselara.receitafacil.ui.presentation.features.recipes.add.domain.source.AddUpdateRecipeRemoteDataSource
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.repository.AddUpdateRecipeRepositoryImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.data.source.AddUpdateRecipeRemoteDataSourceImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.repository.AddUpdateRecipeRepository
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.source.AddUpdateRecipeRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
