@@ -8,7 +8,7 @@ package com.courselara.receitafacil.core.domain.model
  * @property quantity The amount required, including units (e.g., "2 cups", "500g").
  */
 data class IngredientsModel(
-    val id: String? = null,
+    val id: String ,
     val name: String,
     val quantity: String,
 )
