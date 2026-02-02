@@ -38,7 +38,7 @@ fun AddIngredientDialog(
     modifier: Modifier = Modifier,
     productNameValue: String,
     productQuantityValue: String,
-    errorMessageInput: String,
+    errorMessageInput: String?,
     onDismiss: () -> Unit,
     onShowConfirm: () -> Unit,
     onIngredientProductNameInputChange: (String) -> Unit,
@@ -121,7 +121,7 @@ fun AddIngredientDialog(
                         )
                     }
                     Button(
-                        onClick = { onDismiss() },
+                        onClick = { onShowConfirm() },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary,
                             contentColor = Color.White

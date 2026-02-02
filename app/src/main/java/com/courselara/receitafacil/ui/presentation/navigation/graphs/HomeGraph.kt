@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
+import com.courselara.receitafacil.ui.presentation.navigation.addUpdateRecipeScreen
 import com.courselara.receitafacil.ui.presentation.navigation.recipesScreen
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 import com.courselara.receitafacil.ui.presentation.navigation.screens.HomeScreens
@@ -27,6 +28,10 @@ fun NavGraphBuilder.homeGraph(
             onNavigationToAddRecipeScreen = onNavigationToAddRecipeScreen,
             onNavigationToRecipeDetailScreen = { onNavigationToRecipeDetailScreen(it) },
             onNavigationToUsersConnectionScreen = onNavigationToUsersConnectionScreen
+        )
+        addUpdateRecipeScreen(
+            onNavigateUp = onNavigateUp,
+            onNavigateToListRecipeScreen = {}
         )
     }
 }
