@@ -30,7 +30,7 @@ fun AddUpdateRecipeScreen(
     onDismiss: () -> Unit,
     onOpenDialog: () -> Unit,
     onNavigateUp: () -> Unit,
-    onNavigateToListRecipeScreen: () -> Unit,
+    onNavigateToRecipesScreen: () -> Unit,
     onEvent: (AddUpdateRecipeEvent) -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -46,7 +46,7 @@ fun AddUpdateRecipeScreen(
             uiState.isOperationSuccessful
         },
         destination = {
-            onNavigateToListRecipeScreen()
+            onNavigateToRecipesScreen()
         }
 
     )

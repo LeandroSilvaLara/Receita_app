@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import com.courselara.receitafacil.ui.presentation.navigation.graphs.authGraph
 import com.courselara.receitafacil.ui.presentation.navigation.graphs.homeGraph
 import com.courselara.receitafacil.ui.presentation.navigation.graphs.navigationToHomeGraph
-import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 
 /**
@@ -48,7 +47,10 @@ fun RootHost(
             onNavigationToSearchScreen = {},
             onNavigationToAddRecipeScreen = {},
             onNavigationToProfileScreen = {},
-            onNavigationToUsersConnectionScreen = {}
+            onNavigationToUsersConnectionScreen = {},
+            onNavigateToRecipesScreen = {
+                navController.navigateToRecipesScreen()
+            }
         )
     }
 }

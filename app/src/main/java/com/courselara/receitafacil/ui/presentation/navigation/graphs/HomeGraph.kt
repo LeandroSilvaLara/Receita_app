@@ -17,6 +17,7 @@ fun NavGraphBuilder.homeGraph(
     onNavigationToAddRecipeScreen: () -> Unit,
     onNavigationToRecipeDetailScreen: (recipeId: String) -> Unit,
     onNavigationToUsersConnectionScreen: () -> Unit,
+    onNavigateToRecipesScreen: () -> Unit
 ) {
     navigation<Graphs.HomeGraph>(
         startDestination = HomeScreens.RecipesScreen
@@ -31,7 +32,7 @@ fun NavGraphBuilder.homeGraph(
         )
         addUpdateRecipeScreen(
             onNavigateUp = onNavigateUp,
-            onNavigateToListRecipeScreen = {}
+            onNavigateToRecipesScreen = onNavigateToRecipesScreen
         )
     }
 }

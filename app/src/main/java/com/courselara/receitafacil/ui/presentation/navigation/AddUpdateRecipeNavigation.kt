@@ -6,7 +6,7 @@ import com.courselara.receitafacil.ui.presentation.navigation.screens.HomeScreen
 
 fun NavGraphBuilder.addUpdateRecipeScreen(
     onNavigateUp: () -> Unit,
-    onNavigateToListRecipeScreen: () -> Unit
+    onNavigateToRecipesScreen: () -> Unit
 ) {
     composable<HomeScreens.AddRecipeScreen> {
 
