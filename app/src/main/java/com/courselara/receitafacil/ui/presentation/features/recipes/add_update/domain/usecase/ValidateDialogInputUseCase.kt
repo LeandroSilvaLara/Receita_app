@@ -6,14 +6,14 @@ interface ValidateDialogInputUseCase {
     operator fun invoke(parameters: Parameters): AddUpdateRecipeInputValidationType
     data class Parameters(
         val ingredientsProductName: String,
-        val ingredientsProductAmount: String,
+        val ingredientsProductQuantity: String,
     )
 
 }
 
 class ValidateDialogInputUseCaseImpl : ValidateDialogInputUseCase {
     override fun invoke(parameters: ValidateDialogInputUseCase.Parameters): AddUpdateRecipeInputValidationType {
-        return if (parameters.ingredientsProductName.isEmpty() || parameters.ingredientsProductAmount.isEmpty()
+        return if (parameters.ingredientsProductName.isEmpty() || parameters.ingredientsProductQuantity.isEmpty()
                 ) {
             AddUpdateRecipeInputValidationType.EmptyDialogField
         } else {
