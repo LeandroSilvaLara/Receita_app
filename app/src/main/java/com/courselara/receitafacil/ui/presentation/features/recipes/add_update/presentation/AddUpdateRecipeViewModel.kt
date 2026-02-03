@@ -5,9 +5,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.courselara.receitafacil.core.domain.model.CategoryEnum
 import com.courselara.receitafacil.core.domain.model.IngredientsModel
 import com.courselara.receitafacil.core.sideeffects.SideEffect
+import com.courselara.receitafacil.core.util.extensions.observeState
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.model.AddUpdateRecipeInputValidationType
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.model.AddUpdateRecipeRequestModel
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.AddRecipeUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.UpdateRecipeUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCase
@@ -18,6 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
@@ -99,21 +104,24 @@ class AddUpdateRecipeViewModel @Inject constructor(
             val id = UUID.randomUUID().toString()
             val productName = _uiState.value.ingredientsProductNameInput
             val productQuantity = _uiState.value.ingredientsProductQuantityInput
+            val ingredientsModel = IngredientsModel(
+                id = id,
+                name = productName,
+                quantity = productQuantity
+            )
             ingredients.add(
-                IngredientsModel(
-                    id = id,
-                    name = productName,
-                    quantity = productQuantity
-                )
+                ingredientsModel
             )
             onDismissDialog()
             clearFields()
-
+        } else {
+            return
         }
     }
 
     private fun clearFields() {
-
+        _uiState.update { it.copy(ingredientsProductNameInput = "") }
+        _uiState.update { it.copy(ingredientsProductQuantityInput = "") }
     }
 
 
@@ -125,13 +133,82 @@ class AddUpdateRecipeViewModel @Inject constructor(
         }
     }
 
-    private fun updateRecipe() {
-
-    }
-
     private fun addRecipe() {
-
+        viewModelScope.launch {
+            addRecipeUseCase.invoke(
+                AddRecipeUseCase.Parameters(
+                    AddUpdateRecipeRequestModel(
+                        name = _uiState.value.nameInput,
+                        category = CategoryEnum.fromDescription(_uiState.value.categoryInput)?.value
+                            ?: 0,
+                        preparationModel = _uiState.value.preparationModeInput,
+                        preparationTime = _uiState.value.preparationTimeInput
+                    )
+                )
+            ).observeState(
+                onLoading = {
+                    _uiState.update { it.copy(isLoading = true) }
+                },
+                onFailure = { error ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false, errorMessageRegisterProcess =
+                                error.message.toString()
+                        )
+                    }
+                },
+                onSuccess = { response ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isOperationSuccessful = response.isSuccessFul,
+                        )
+                    }
+                    _sideEffectChannel.send(SideEffect.ShowToast(response.message))
+                }
+            )
+        }
     }
+
+    private fun updateRecipe() {
+        viewModelScope.launch {
+            updateRecipeUseCase.invoke(
+                UpdateRecipeUseCase.Parameters(
+                    recipeId = _uiState.value.currentRecipeId,
+                    addUpdateRecipeRequestModel =
+                        AddUpdateRecipeRequestModel(
+                            name = _uiState.value.nameInput,
+                            category = CategoryEnum.fromDescription(_uiState.value.categoryInput)?.value
+                                ?: 0,
+                            preparationModel = _uiState.value.preparationModeInput,
+                            preparationTime = _uiState.value.preparationTimeInput
+                        )
+                )
+            ).observeState(
+                onLoading = {
+                    _uiState.update { it.copy(isLoading = true) }
+                },
+                onFailure = { error ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false, errorMessageRegisterProcess =
+                                error.message.toString()
+                        )
+                    }
+                },
+                onSuccess = { response ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isOperationSuccessful = response.isSuccessFul,
+                        )
+                    }
+                    _sideEffectChannel.send(SideEffect.ShowToast(response.message))
+                }
+            )
+        }
+    }
+
 
     private fun checkInputValidation() {
         val resultValidation = validateAddUpdateRecipeInputUseCase.invoke(

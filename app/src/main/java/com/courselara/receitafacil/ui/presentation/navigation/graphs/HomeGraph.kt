@@ -14,7 +14,7 @@ fun NavGraphBuilder.homeGraph(
     onNavigateToAuthGraph: () -> Unit = {},
     onNavigationToProfileScreen: () -> Unit,
     onNavigationToSearchScreen: () -> Unit,
-    onNavigationToAddRecipeScreen: () -> Unit,
+    onNavigationToAddRecipeScreen: (String?) -> Unit,
     onNavigationToRecipeDetailScreen: (recipeId: String) -> Unit,
     onNavigationToUsersConnectionScreen: () -> Unit,
     onNavigateToRecipesScreen: () -> Unit
@@ -26,7 +26,7 @@ fun NavGraphBuilder.homeGraph(
             onNavigateToAuthGraph = onNavigateToAuthGraph,
             onNavigationToProfileScreen = onNavigationToProfileScreen,
             onNavigationToSearchScreen = onNavigationToSearchScreen,
-            onNavigationToAddRecipeScreen = onNavigationToAddRecipeScreen,
+            onNavigationToAddRecipeScreen = { onNavigationToAddRecipeScreen("") },
             onNavigationToRecipeDetailScreen = { onNavigationToRecipeDetailScreen(it) },
             onNavigationToUsersConnectionScreen = onNavigationToUsersConnectionScreen
         )

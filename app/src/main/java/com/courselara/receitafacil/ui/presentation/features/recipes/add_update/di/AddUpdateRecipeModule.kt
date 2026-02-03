@@ -8,6 +8,8 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.d
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.source.AddUpdateRecipeRemoteDataSource
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.AddRecipeUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.AddRecipeUseCaseImpl
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.UpdateRecipeUseCase
+import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.UpdateRecipeUseCaseImpl
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCaseImpl
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateDialogInputUseCase
@@ -51,6 +53,16 @@ object AddUpdateRecipeModule {
         addUpdateRecipeRepository: AddUpdateRecipeRepository
     ): AddRecipeUseCase {
         return AddRecipeUseCaseImpl(
+            addUpdateRecipeRepository = addUpdateRecipeRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateRecipeUseCase(
+        addUpdateRecipeRepository: AddUpdateRecipeRepository
+    ): UpdateRecipeUseCase {
+        return UpdateRecipeUseCaseImpl(
             addUpdateRecipeRepository = addUpdateRecipeRepository
         )
     }

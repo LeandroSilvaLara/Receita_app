@@ -45,7 +45,9 @@ fun RootHost(
             },
             onNavigationToRecipeDetailScreen = {},
             onNavigationToSearchScreen = {},
-            onNavigationToAddRecipeScreen = {},
+            onNavigationToAddRecipeScreen = {
+                navController.navigateToAddUpdateRecipeScreen(it)
+            },
             onNavigationToProfileScreen = {},
             onNavigationToUsersConnectionScreen = {},
             onNavigateToRecipesScreen = {
