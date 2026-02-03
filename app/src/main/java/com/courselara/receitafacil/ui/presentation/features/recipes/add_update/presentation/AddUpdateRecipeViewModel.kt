@@ -181,7 +181,8 @@ class AddUpdateRecipeViewModel @Inject constructor(
                             category = CategoryEnum.fromDescription(_uiState.value.categoryInput)?.value
                                 ?: 0,
                             preparationModel = _uiState.value.preparationModeInput,
-                            preparationTime = _uiState.value.preparationTimeInput
+                            preparationTime = _uiState.value.preparationTimeInput,
+                            ingredients = ingredients
                         )
                 )
             ).observeState(
