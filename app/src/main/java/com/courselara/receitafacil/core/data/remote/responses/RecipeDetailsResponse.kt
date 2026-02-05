@@ -10,11 +10,11 @@ data class RecipeDetailsResponse(
     @SerializedName("category")
     val category: String,
     @SerializedName("preparationTime")
-    val preparationTime: Int,
+    val preparationTime: String,
     @SerializedName("preparationMode")
-    val preparationMode: Int,
+    val preparationMode: String,
     @SerializedName("createAt")
-    val createAt: Int,
+    val createAt: String,
     @SerializedName("ingredients")
     val ingredients: List<IngredientsResponse>,
 
