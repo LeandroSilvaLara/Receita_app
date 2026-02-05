@@ -19,6 +19,15 @@ import com.courselara.receitafacil.ui.presentation.features.auth.login.presentat
 import com.courselara.receitafacil.ui.presentation.features.auth.login.presentation.LoginViewModel
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 
+/**
+ * Extension function on [NavGraphBuilder] to define the login screen destination in the navigation graph.
+ *
+ * This function sets up the [LoginScreen] composable, providing it with its corresponding
+ * [LoginViewModel] and handling navigation actions.
+ *
+ * @param onNavigateToHomeGraphs Callback invoked when the user successfully authenticates and should be redirected to the home graph.
+ * @param onNavigateToRegisterScreen Callback invoked when the user requests to navigate to the registration screen.
+ */
 fun NavGraphBuilder.loginScreen(
     onNavigateToHomeGraphs: () -> Unit,
     onNavigateToRegisterScreen: () -> Unit,

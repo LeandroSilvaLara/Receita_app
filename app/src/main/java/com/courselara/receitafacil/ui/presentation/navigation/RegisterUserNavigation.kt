@@ -10,6 +10,15 @@ import com.courselara.receitafacil.ui.presentation.features.auth.register.presen
 import com.courselara.receitafacil.ui.presentation.features.auth.register.presentation.RegisterUserViewModel
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 
+/**
+ * Adds the register user screen to the navigation graph.
+ *
+ * This function defines a composable route for the registration screen, initializing
+ * the [RegisterUserViewModel] and setting up the UI state and event handling.
+ *
+ * @param onNavigateToLoginScreen Callback triggered when the user chooses to navigate
+ * back to the login screen.
+ */
 fun NavGraphBuilder.registerScreen(
     onNavigateToLoginScreen: () -> Unit,
 ) {
