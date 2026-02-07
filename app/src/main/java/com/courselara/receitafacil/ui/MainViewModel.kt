@@ -12,6 +12,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel responsible for managing the global application state and initial navigation logic.
+ *
+ * It determines the initial destination of the application based on the user's authentication
+ * status and manages the visibility of the splash screen during the initial data loading phase.
+ *
+ * @property getUserDataUserCase Use case to retrieve the current user's session data.
+ */
 class MainViewModel @Inject constructor(
     private val getUserDataUserCase: GetUserDataUseCase,
 ): ViewModel() {
