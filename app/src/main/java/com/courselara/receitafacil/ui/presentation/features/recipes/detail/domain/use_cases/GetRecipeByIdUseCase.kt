@@ -10,6 +10,12 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.detail.domai
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Use case for retrieving a specific recipe's details by its unique identifier.
+ *
+ * This use case interacts with the repository layer to fetch detailed information
+ * about a recipe, providing a reactive stream of [ResponseData].
+ */
 interface GetRecipeByIdUseCase {
     operator fun invoke(parameters: Parameters): Flow<ResponseData<RecipeDetailModel>>
     data class Parameters(val recipeId: String)

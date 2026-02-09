@@ -8,6 +8,12 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.detail.domai
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Use case responsible for deleting a specific recipe by its identifier.
+ *
+ * This use case encapsulates the business logic for removing a recipe from the system,
+ * returning a flow that emits the state of the operation.
+ */
 interface DeleteRecipeUseCase {
     operator fun invoke(parameters: Parameters): Flow<ResponseData<SimplesResponseModel>>
     data class Parameters(val recipeId: String)
