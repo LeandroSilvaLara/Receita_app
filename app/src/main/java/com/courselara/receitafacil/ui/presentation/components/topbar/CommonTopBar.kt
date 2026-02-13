@@ -1,6 +1,7 @@
 package com.courselara.receitafacil.ui.presentation.components.topbar
 
 import android.R
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Save
@@ -30,7 +31,21 @@ fun CommonTopBar(
     navigationImageVector: ImageVector? = null,
     contentDescription: String? = null,
     onActionIconButton: () -> Unit = {},
-    onNavigationIconButton: () -> Unit = {}
+    onNavigationIconButton: () -> Unit = {},
+    action: @Composable RowScope.() -> Unit = {
+        if (actionImageVector != null) {
+            IconButton(
+                onClick = { onActionIconButton() },
+                enabled = enable
+            ) {
+                Icon(
+                    imageVector = actionImageVector,
+                    contentDescription = contentDescription,
+                    tint = if (enable) MaterialTheme.colorScheme.onSurfaceVariant else Color.Transparent
+                )
+            }
+        }
+    },
 ) {
     TopAppBar(
         modifier = modifier,
@@ -47,20 +62,7 @@ fun CommonTopBar(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
-        actions = {
-            if (actionImageVector != null) {
-                IconButton(
-                    onClick = { onActionIconButton() },
-                    enabled = enable
-                ) {
-                    Icon(
-                        imageVector = actionImageVector,
-                        contentDescription = contentDescription,
-                        tint = if (enable) MaterialTheme.colorScheme.onSurfaceVariant else Color.Transparent
-                    )
-                }
-            }
-        },
+        actions = action,
         navigationIcon = {
             if (navigationImageVector != null) {
                 IconButton(
