@@ -20,6 +20,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Dagger Hilt module responsible for providing dependencies related to the
+ * add and update recipe features.
+ *
+ * This module provides the necessary data sources, repositories, and use cases
+ * required for creating new recipes, updating existing ones, and validating
+ * user inputs within the recipe management flow.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AddUpdateRecipeModule {
