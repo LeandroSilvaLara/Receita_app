@@ -63,7 +63,7 @@ fun NavController.clearStackAnNavigateToRecipeScreen() {
     }
 }
 
-fun NavController.recreateRecipeScreen() {
+fun NavController.recreateAndNavigateToRecipesScreen() {
     navigate(HomeScreens.RecipesScreen) {
         popUpTo(HomeScreens.RecipesScreen) {
             inclusive = true

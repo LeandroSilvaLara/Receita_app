@@ -4,8 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.courselara.receitafacil.core.domain.model.CategoryEnum
 import com.courselara.receitafacil.core.domain.model.IngredientsModel
 import com.courselara.receitafacil.core.sideeffects.SideEffect
@@ -17,6 +19,8 @@ import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.d
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateAddUpdateRecipeInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.domain.usecase.ValidateDialogInputUseCase
 import com.courselara.receitafacil.ui.presentation.features.recipes.add_update.presentation.state.AddUpdateRecipeUiState
+import com.courselara.receitafacil.ui.presentation.features.recipes.detail.domain.use_cases.GetRecipeByIdUseCase
+import com.courselara.receitafacil.ui.presentation.navigation.screens.HomeScreens
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,8 +31,10 @@ import java.util.UUID
 import javax.inject.Inject
 
 class AddUpdateRecipeViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val addRecipeUseCase: AddRecipeUseCase,
     private val updateRecipeUseCase: UpdateRecipeUseCase,
+    private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
     private val validateDialogInputUseCase: ValidateDialogInputUseCase,
     private val validateAddUpdateRecipeInputUseCase: ValidateAddUpdateRecipeInputUseCase
 ) : ViewModel() {
@@ -43,6 +49,12 @@ class AddUpdateRecipeViewModel @Inject constructor(
         private set
 
     var ingredients = mutableStateListOf<IngredientsModel>()
+
+    val recipeId = savedStateHandle.toRoute<HomeScreens.AddRecipeScreen>().recipeId ?: ""
+
+    init {
+        loadRecipeForEditing(recipeId)
+    }
 
     fun onEvent(event: AddUpdateRecipeEvent) {
         when (event) {
@@ -99,6 +111,51 @@ class AddUpdateRecipeViewModel @Inject constructor(
         isAddIngredientDialogShown = true
     }
 
+    private fun loadRecipeForEditing(recipeId: String) {
+        if (recipeId.isNotEmpty()) {
+            viewModelScope.launch {
+                getRecipeByIdUseCase.invoke(
+                    GetRecipeByIdUseCase.Parameters(recipeId)
+                ).observeState(
+                    onLoading = {
+                        _uiState.update { it.copy(isLoading = true) }
+                    },
+
+                    onFailure = { error ->
+                        _uiState.update { it.copy(isLoading = false, errorMessage = error.message) }
+                    },
+
+                    onSuccess = { recipeDetailModel ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                currentRecipeId = recipeDetailModel.id
+                            )
+                        }
+
+                        onEvent(AddUpdateRecipeEvent.OnNameInputChange(recipeDetailModel.name))
+                        onEvent(AddUpdateRecipeEvent.OnCategoryInputChange(recipeDetailModel.category))
+                        onEvent(AddUpdateRecipeEvent.OnPreparationModeInputChange(recipeDetailModel.preparationModel))
+                        onEvent(AddUpdateRecipeEvent.OnPreparationTimeInputChange(recipeDetailModel.preparationTime))
+
+                        recipeDetailModel.ingredients.forEach { ingredientModel ->
+                            ingredients.add(
+                                IngredientsModel(
+                                    id = ingredientModel.id,
+                                    name = ingredientModel.name,
+                                    quantity = ingredientModel.quantity
+                                )
+                            )
+                        }
+                        processInputValidation(AddUpdateRecipeInputValidationType.Valid)
+                        processDialogInputValidation(AddUpdateRecipeInputValidationType.Valid)
+                    }
+                )
+            }
+        }
+    }
+
+
     private fun addIngredient() {
         if (_uiState.value.isInputDialogValid) {
             val id = UUID.randomUUID().toString()
@@ -120,8 +177,7 @@ class AddUpdateRecipeViewModel @Inject constructor(
     }
 
     private fun clearFields() {
-        _uiState.update { it.copy(ingredientsProductNameInput = "") }
-        _uiState.update { it.copy(ingredientsProductQuantityInput = "") }
+        _uiState.update { it.copy(ingredientsProductNameInput = "", ingredientsProductQuantityInput = "") }
     }
 
 

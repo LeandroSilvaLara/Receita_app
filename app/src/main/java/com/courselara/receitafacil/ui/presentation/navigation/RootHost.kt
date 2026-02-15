@@ -56,7 +56,7 @@ fun RootHost(
                 navController.clearStackAnNavigateToRecipeScreen()
             },
             onRecreateAndNavigateToRecipeScreen = {
-                navController.recreateRecipeScreen()
+                navController.recreateAndNavigateToRecipesScreen()
             }
         )
     }
