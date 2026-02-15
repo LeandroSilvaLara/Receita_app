@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import com.courselara.receitafacil.ui.presentation.navigation.addUpdateRecipeScreen
+import com.courselara.receitafacil.ui.presentation.navigation.recipeDetailScreen
 import com.courselara.receitafacil.ui.presentation.navigation.recipesScreen
 import com.courselara.receitafacil.ui.presentation.navigation.screens.Graphs
 import com.courselara.receitafacil.ui.presentation.navigation.screens.HomeScreens
@@ -17,7 +18,8 @@ fun NavGraphBuilder.homeGraph(
     onNavigationToAddRecipeScreen: (String?) -> Unit,
     onNavigationToRecipeDetailScreen: (recipeId: String) -> Unit,
     onNavigationToUsersConnectionScreen: () -> Unit,
-    onNavigateToRecipesScreen: () -> Unit
+    onNavigateToRecipesScreen: () -> Unit,
+    onRecreateAndNavigateToRecipeScreen: () -> Unit
 ) {
     navigation<Graphs.HomeGraph>(
         startDestination = HomeScreens.RecipesScreen
@@ -33,6 +35,13 @@ fun NavGraphBuilder.homeGraph(
         addUpdateRecipeScreen(
             onNavigateUp = onNavigateUp,
             onNavigateToRecipesScreen = onNavigateToRecipesScreen
+        )
+        recipeDetailScreen(
+            onNavigateUp = onNavigateUp,
+            onNavigateToRecipesScreen = onRecreateAndNavigateToRecipeScreen,
+            onNavigateToAddUpdateRecipeScreen = { recipeId ->
+                onNavigationToAddRecipeScreen(recipeId)
+            }
         )
     }
 }

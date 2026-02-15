@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.courselara.receitafacil.R
 import com.courselara.receitafacil.ui.presentation.navigation.screens.AuthScreens
 import com.courselara.receitafacil.ui.theme.ReceitaFacilAppTheme
-
 @Composable
 fun BottomBar(
     modifier: Modifier = Modifier,

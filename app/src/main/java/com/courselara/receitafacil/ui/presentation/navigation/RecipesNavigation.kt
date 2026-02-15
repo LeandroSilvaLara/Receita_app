@@ -57,8 +57,16 @@ fun NavGraphBuilder.recipesScreen(
     }
 }
 
-fun NavController.navigateToRecipesScreen() {
+fun NavController.clearStackAnNavigateToRecipeScreen() {
     navigate(HomeScreens.RecipesScreen) {
         popUpTo(0)
+    }
+}
+
+fun NavController.recreateRecipeScreen() {
+    navigate(HomeScreens.RecipesScreen) {
+        popUpTo(HomeScreens.RecipesScreen) {
+            inclusive = true
+        }
     }
 }

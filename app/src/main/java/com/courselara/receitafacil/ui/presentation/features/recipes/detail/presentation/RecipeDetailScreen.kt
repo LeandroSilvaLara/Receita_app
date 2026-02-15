@@ -70,7 +70,7 @@ fun RecipeDetailScreen(
                         )
                     }
                     IconButton(
-                        onClick = { onEvent(RecipeDetailEvent.OnDeleteRecipe(uiState.recipeDetail?.id.toString())) }
+                        onClick = { onEvent(RecipeDetailEvent.OnShowDialog) }
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.DeleteOutline,
@@ -97,7 +97,7 @@ fun RecipeDetailScreen(
             title = stringResource(id = R.string.dialog_details_recipe_text),
             description = stringResource(id = R.string.dialog_details_recipe_description_text),
             onDismiss = { onEvent(RecipeDetailEvent.OnDismissDialog) },
-            onButtonConfirm = { onEvent(RecipeDetailEvent.OnShowDialog) }
+            onButtonConfirm = { onEvent(RecipeDetailEvent.OnDeleteRecipe(uiState.recipeDetail?.id.toString())) }
         )
     }
 

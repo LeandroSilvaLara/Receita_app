@@ -43,7 +43,9 @@ fun RootHost(
             onNavigateToAuthGraph = {
                 navController.navigateToLoginScreen()
             },
-            onNavigationToRecipeDetailScreen = {},
+            onNavigationToRecipeDetailScreen = {
+                navController.navigateToRecipeDetailScreen(it)
+            },
             onNavigationToSearchScreen = {},
             onNavigationToAddRecipeScreen = {
                 navController.navigateToAddUpdateRecipeScreen(it)
@@ -51,7 +53,10 @@ fun RootHost(
             onNavigationToProfileScreen = {},
             onNavigationToUsersConnectionScreen = {},
             onNavigateToRecipesScreen = {
-                navController.navigateToRecipesScreen()
+                navController.clearStackAnNavigateToRecipeScreen()
+            },
+            onRecreateAndNavigateToRecipeScreen = {
+                navController.recreateRecipeScreen()
             }
         )
     }
